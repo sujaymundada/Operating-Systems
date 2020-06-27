@@ -95,6 +95,37 @@ IO CONTROL
 3. When the IO device comples it issues back a interrupt to the CPU. 
 4. CPU then stops whatever it was doing and processes the interrupt. 
 
+Types of IO
+1. Synchronous or blocking IO: The process that issued the IO request waits for the interrupt. 
+2. Asynchronous or non blocking IO: The process continues working and later maps the IO results once the IO interrupt is encountered. 
+3. Memory Mapped IO 
+
+Interrrupts vs Traps: 
+Interrupts are raised by hardware whereas traps are raised by the software. Interrupt vector server similar purpose to trap vector. 
+
+Timer and Atomic Instructions:
+Timer is used by the OS to get time of the day. 
+CPU is protected from being hogged by using the timer instructiong. At the end of each timer instruction the CPU chooses a new process to execute. 
+
+Synchornization:
+OS must be able to synchronize the cooperating, concurrant processes. 
+To support synch. OS must provide what we call atomic instructions. Architecture must provide short sequence of instructions that execute atomically. 
+E.g. read -- modify -- write. 
+2 methods to achieve this:
+1. Disable interrupt before a sequence -- execute that sequence -- enable interrupts again. 
+2. test&set instruction that executes atomically. Check value of a variable and set it to something in 1 CPU cycle. 
+
+Translation Lookaside Buffers or TLBs:
+Virtual memory allows users to run programs without loading the entire program in memory at once.
+Pieces of programs are loaded as and when needed. 
+OS must keep a track of which pieces are in which part of physical memory and which pieces are on the disc. 
+In order for the pieces of the programs to be located /loaded without any disruption to the program the hardware provides a TLB for a speedy lookup. 
+TLB (Cache) maps the virtual memory / logical memory to the physical memory. 
+
+
+
+
+
 
 
 
