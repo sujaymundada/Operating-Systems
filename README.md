@@ -1,4 +1,5 @@
 > LECTURE 1
+
 OS: Virtual machine that makes hardware easy to program. 
     Tradeoff between convenience for the users to use and efficiency. 
 OS is the layer where the hardware and softwares. All applications will interact with the hardware through the OS. 
@@ -53,13 +54,12 @@ Any process can read any other processes memory if memory protection is not enab
 Thus processes have to be restricted from accessing memory other than their own allocated memory. 
 Ranged checks are the simplest way to do it. e.g. Use base and limit registers values and then for each user reference the OS checks if the memory location is between the base and the limit registers. 
 
-Process Memory Layout in Memory. 
----Stack--- 
---- Gap ---
------------
------------
-----Data--- [Heap Segment] 
----Text---- [ Code Text Storage] 
+Process Memory Layout in Memory
+
+STACK
+GAP 
+DATA [ HEAP SEGMENT] 
+TEXT [CODE TEXT SEGMENT]
 
 When you allocate more space on stack it grows downwards and when you allocate more memory on the heap it grows upwards and gap decreases. 
 
@@ -72,6 +72,7 @@ Special Purpose Registers:
 Memory Hierarchy
 
 Register --> L1 Cache ---> L2 Cache ----> RAM ----> Disc -----> Network 
+
 1 cycle ---> 2 cycles ---> 7 cycles ----> 100-----> 40k ------> 
 
 Amount of memory increases as you go to right the speed of it decreases. 
@@ -129,12 +130,19 @@ TLB (Cache) maps the virtual memory / logical memory to the physical memory.
 > LECTURE 3
 
 OS Service          Hardware Support
+
 Protection          Kernel /User Mode 
+
 Interrupt           Interrupt Vectors 
+
 System Calls        Trap instructions 
+
 I/O                 Interrupts, Memory mapping
+
 Scheduling          Timer
+
 Synchronization     Atomic Instructions 
+
 Virtual Memory      Translational Lookaside Buffers
 
 printf statement which you use in c calls the standard library which implements the printf function. The printf function internally calls write system calls
@@ -200,7 +208,7 @@ Process Execution State:
 5. Terminated   OS is destroying this process. 
 
 New ----> Ready <-----------> Running ------> Terminated 
-            |                    |
+
             <------Waiting------->
 
 > LECTURE 4
