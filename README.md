@@ -1,4 +1,4 @@
-####################################################################### Lecture 1 #######################################################################
+> LECTURE 1
 OS: Virtual machine that makes hardware easy to program. 
     Tradeoff between convenience for the users to use and efficiency. 
 OS is the layer where the hardware and softwares. All applications will interact with the hardware through the OS. 
@@ -15,7 +15,7 @@ GUI was added to OS wherein you can interact with your OS using the GUI.
 More than 1 process can run on 1 processor using scheduling -- multiprogramming
 More than 1 processor can be present on 1 system. Used to do parallel programming. 
 
-####################################################################### Lecture 2 #######################################################################
+> LECTURE 2
 
 OS = Kernel + lots of software pieces that sit above it. 
 
@@ -126,7 +126,7 @@ OS must keep a track of which pieces are in which part of physical memory and wh
 In order for the pieces of the programs to be located /loaded without any disruption to the program the hardware provides a TLB for a speedy lookup. 
 TLB (Cache) maps the virtual memory / logical memory to the physical memory. 
 
-####################################################################### Lecture 3 #######################################################################
+> LECTURE 3
 
 OS Service          Hardware Support
 Protection          Kernel /User Mode 
@@ -203,7 +203,7 @@ New ----> Ready <-----------> Running ------> Terminated
             |                    |
             <------Waiting------->
 
-####################################################################### Lecture 4 #######################################################################
+> LECTURE 4
 
 PCB: Process Control Block { Kernel Datastructure } 
 The OS allocates a new PCB to each process and places it on a state queue. 
@@ -250,8 +250,7 @@ SHARED MEMORY:
 Establish a memory mapping between the processes' address space to a named memory object that may be shared across the processes.
 The mmap(...) system call helps you with this purpose. 
 
-
-####################################################################### Lecture 5 #######################################################################
+> LECTURE 5
 
 Long Term Scheduling: Number of jobs executing at once in the primary memory --> You usually would have never hit this limit. 
 OS decides the max limit on the number of active processes in the system. OS doesnt allow you to start a new process henceforth. 
