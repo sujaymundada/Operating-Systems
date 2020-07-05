@@ -327,18 +327,37 @@ Schedulers are present in the linux kernel.
 
 But this is usually picked up by the compiler while starting the kernel. 
 
-> A blocking system call is the one that puts the calling process in waiting state until the event on which the block was called gets completed. 
+    A blocking system call is the one that puts the calling process in waiting state until the event on which the block was called gets completed. 
 
 > Scheduling Policies 
 
 1. FCFS - First Come First Serve.
 Preemtive system. If a process makes IO / blocking system call then the next process runs and after that again the first process will continue. 
+High average wait time. 
 
 2. Round Robin - Every job is given a time slice which it either utilizes fully or partially if it makes a blocking system call before time ends. 
 Simplest preemtive system. 
 Every time a new process is scheduled you do a context switch. 
 All context switches have a overhead involved with them.
 Time Slice too large - Waiting time increases and it approaches to FCFS. Too Small time slice has higher overhead of context switch. 
+
+3. Shortest Job First (SJF) / Shorttest remaining time first (SRTF) 
+Schedule the job with least amount of expected CPU time. 
+Optimal waiting time. 
+Preemptive SJF is called SRTF , non preemtive is called SJF. 
+IO bound jobs get preference over CPU bound jobs. 
+
+Disadvantages: 
+No way to figure out expected job length. 
+Long running CPU jobs can starve. 
+
+4. Multilevel Feedback Queue ( MLFQ) 
+Overcomes the problem of predicting the job length of shortest job first. 
+Use behaviour of the job in the recent past to predict the future. - Decent Assumption because you will probably stay in a for loop for a while. 
+
+# Lecture 6
+
+
 
 
 
