@@ -1,8 +1,11 @@
 # LECTURE 1
 
 OS: Virtual machine that makes hardware easy to program. 
+
     Tradeoff between convenience for the users to use and efficiency. 
+
 OS is the layer where the hardware and softwares. All applications will interact with the hardware through the OS. 
+
 System calls are the APIs provided by the OS for the programs to interact with the hardware. 
 
 To increase better use of machine we can do I/O and Computation at the same time. You have multiple hardware resources which you can use simultaneously.
@@ -14,6 +17,7 @@ Shell: Composable commands
 GUI was added to OS wherein you can interact with your OS using the GUI. 
 
 More than 1 process can run on 1 processor using scheduling -- multiprogramming
+
 More than 1 processor can be present on 1 system. Used to do parallel programming. 
 
 # LECTURE 2
@@ -21,50 +25,66 @@ More than 1 processor can be present on 1 system. Used to do parallel programmin
 OS = Kernel + lots of software pieces that sit above it. 
 
 Your system = CPU + I/O devices + Networking Ports(Ethernet) + Memory(RAM) + System Bus(That connects all of this)
+
 System bus allows all the componenets to interact with each other. 
 
 Concurrancy: One thread on a CPU at a time but multiple threads active at the same time.
-Concurrancy also needs parallism to truely allow multiple threads work on together on different cores. (Concurrancy vs Parallelism) 
+
+    Concurrancy also needs parallism to truely allow multiple threads work on together on different cores. (Concurrancy vs Parallelism) 
 
 Multiple process running at the same time on OS but only on a single CPU is concurrancy but not parallelism. Its virtual concurrancy.
 
 Assembly language is the language through which you can program your hardware.
+
 All the other programming languages reduce the code to the assembly code at a later stage. 
 
 Hardware Features motivated by OS services:
 
 1. Protection: 
+
 Some assembly instructions are sensitive or previleged and you do not want any arbitary process to run that instruction. E.g. HALT 
+
 All other instructions can be accessed by the other processes. 
+
 This is achieved using User Mode vs Kernel Mode. 
+
 Set a bit that tells you whether you are in User or Kernel Mode.
+
 A status bit in a protected processes register indicates whether you are in the Kernel Mode or not. 
 
 IO is a priveleged mode. But most user processes have IO , so then the processes asks the Kernel to do this process on its behalf. 
 
-System calls are the OS procedures that execute previleged instructions. 
+> System calls are the OS procedures that execute previleged instructions. 
 
 System calls are the APIs exported by the kernel. They internally call traps which are software interrupts. 
+
 System calls internally call traps so that the execution is passed onto the kernel to carry out the previleged instructions. 
+
 The trap handler saves the caller process state so it can restore control to the user process context state. 
+
 The processes context state gets saved in the kernel's memory. 
 
 2. Memory Protection 
+
 Any process can read any other processes memory if memory protection is not enabled. 
+
 Thus processes have to be restricted from accessing memory other than their own allocated memory. 
+
 Ranged checks are the simplest way to do it. e.g. Use base and limit registers values and then for each user reference the OS checks if the memory location is between the base and the limit registers. 
 
 Process Memory Layout in Memory
 
-STACK
-GAP 
-DATA [ HEAP SEGMENT] 
-TEXT [CODE TEXT SEGMENT]
+    STACK
+    GAP 
+    DATA [ HEAP SEGMENT] 
+    TEXT [CODE TEXT SEGMENT]
 
 When you allocate more space on stack it grows downwards and when you allocate more memory on the heap it grows upwards and gap decreases. 
 
 Register = One word of memory managed by the CPU. 
+
 Special Purpose Registers:
+
 1. PC - Program Counter. Points to some part of the text segment where the program is currently executing.
 2. SP - Stack Pointer. Points to the end of the stack segment. Or where the stack and the gap segment meets. 
 3. FP - Frame Pointer. 
@@ -78,11 +98,15 @@ Register --> L1 Cache ---> L2 Cache ----> RAM ----> Disc -----> Network
 Amount of memory increases as you go to right the speed of it decreases. 
 
 Registers / Main memory is directly managed by the processes itself or the OS that decides. 
+
 Caches however are directly managed by the hardware. ( No explicit management by the OS) 
 
 TRAPS (Hardware feature)
+
 Software interrupts: e.g. Page Fault, int overflow, divide by 0. 
+
 Trap is exception condition that should be handled. Traps are handled by the OS. System calls are a special example of traps. 
+
 How a trap is handled ? 
 1. Save the context of the process. 
 2. Give the execution access to the Kernel by filling the memory bit. 
@@ -106,25 +130,36 @@ Types of IO
 3. Memory Mapped IO 
 
 Interrrupts vs Traps: [ Hardware vs Software ] 
+
 Interrupts are raised by hardware whereas traps are raised by the software. Interrupt vector serve similar purpose to trap vector. 
 
 Timer and Atomic Instructions:
+
 Timer is used by the OS to get time of the day. 
+
 CPU is protected from being hogged by using the timer instructiong. At the end of each timer instruction the CPU chooses a new process to execute. 
 
 Synchornization:
+
 OS must be able to synchronize the cooperating, concurrant processes. 
+
 To support synch. OS must provide what we call atomic instructions. Architecture must provide short sequence of instructions that execute atomically. 
 E.g. read -- modify -- write. 
+
 2 methods to achieve this:
 1. Disable interrupt before a sequence -- execute that sequence -- enable interrupts again. 
 2. test&set instruction that executes atomically. Check value of a variable and set it to something in 1 CPU cycle. 
 
 Translation Lookaside Buffers or TLBs:
+
 Virtual memory allows users to run programs without loading the entire program in memory at once.
+
 Pieces of programs are loaded as and when needed. 
+
 OS must keep a track of which pieces are in which part of physical memory and which pieces are on the disc. 
+
 In order for the pieces of the programs to be located /loaded without any disruption to the program the hardware provides a TLB for a speedy lookup. 
+
 TLB (Cache) maps the virtual memory / logical memory to the physical memory. 
 
 # LECTURE 3
