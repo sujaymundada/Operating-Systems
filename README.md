@@ -332,17 +332,12 @@ But this is usually picked up by the compiler while starting the kernel.
 > Scheduling Policies 
 
 1. FCFS - First Come First Serve.
-
 Preemtive system. If a process makes IO / blocking system call then the next process runs and after that again the first process will continue. 
 
 2. Round Robin - Every job is given a time slice which it either utilizes fully or partially if it makes a blocking system call before time ends. 
-
 Simplest preemtive system. 
-
 Every time a new process is scheduled you do a context switch. 
-
 All context switches have a overhead involved with them.
-
 Time Slice too large - Waiting time increases and it approaches to FCFS. Too Small time slice has higher overhead of context switch. 
 
 
