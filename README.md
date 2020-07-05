@@ -1,4 +1,4 @@
-> LECTURE 1
+# LECTURE 1
 
 OS: Virtual machine that makes hardware easy to program. 
     Tradeoff between convenience for the users to use and efficiency. 
@@ -16,7 +16,7 @@ GUI was added to OS wherein you can interact with your OS using the GUI.
 More than 1 process can run on 1 processor using scheduling -- multiprogramming
 More than 1 processor can be present on 1 system. Used to do parallel programming. 
 
-> LECTURE 2
+# LECTURE 2
 
 OS = Kernel + lots of software pieces that sit above it. 
 
@@ -127,7 +127,7 @@ OS must keep a track of which pieces are in which part of physical memory and wh
 In order for the pieces of the programs to be located /loaded without any disruption to the program the hardware provides a TLB for a speedy lookup. 
 TLB (Cache) maps the virtual memory / logical memory to the physical memory. 
 
-> LECTURE 3
+# LECTURE 3
 
 OS Service          Hardware Support
 
@@ -211,7 +211,7 @@ New ----> Ready <-----------> Running ------> Terminated
 
             <------Waiting------->
 
-> LECTURE 4
+# LECTURE 4
 
 PCB: Process Control Block { Kernel Datastructure } 
 The OS allocates a new PCB to each process and places it on a state queue. 
@@ -258,7 +258,7 @@ SHARED MEMORY:
 Establish a memory mapping between the processes' address space to a named memory object that may be shared across the processes.
 The mmap(...) system call helps you with this purpose. 
 
-> LECTURE 5
+# LECTURE 5
 
 Long Term Scheduling: Number of jobs executing at once in the primary memory --> You usually would have never hit this limit. 
 OS decides the max limit on the number of active processes in the system. OS doesnt allow you to start a new process henceforth. 
@@ -274,6 +274,35 @@ The kernel runs the scheduler atleast when
 Non Preemptive System: The scheduler has to wait for the above condition to occur. That is either the process has to start doing IO or wait for an interrupt to occur for it to stop. Otherwise it completes its execution until the next process is scheduled.
 
 Preemptive Process: The scheduler can call interrrupt a running system when its time slot expires. 
+
+> How to compare scheduling algorithms ? 
+1. CPU Utilization - Percentage of time CPU is busy 
+2. Throughput - Number of processes completed per unit time. 
+3. Turnaround time - The length of time that a process takes to complete including the waiting time. 
+4. Waiting time 
+5. Response time - Time when the process is ready to run until its next IO request. 
+
+Schedulers are present in the linux kernel. 
+
+But this is usually picked up by the compiler while starting the kernel. 
+
+> A blocking system call is the one that puts the calling process in waiting state until the event on which the block was called gets completed. 
+
+> Scheduling Policies 
+    1. FCFS - First Come First Serve.
+
+    Preemtive system. If a process makes IO / blocking system call then the next process runs and after that again the first process will continue. 
+
+    2. Round Robin - Every job is given a time slice which it either utilizes fully or partially if it makes a blocking system call before time ends. 
+
+    Simplest preemtive system. 
+
+    Every time a new process is scheduled you do a context switch. 
+
+    All context switches have a overhead involved with them.
+
+    Time Slice too large - Waiting time increases and it approaches to FCFS. Too Small time slice has higher overhead of context switch. 
+
 
 
 
