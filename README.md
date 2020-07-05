@@ -6,11 +6,11 @@ OS: Virtual machine that makes hardware easy to program.
 
 OS is the layer where the hardware and softwares. All applications will interact with the hardware through the OS. 
 
-System calls are the APIs provided by the OS for the programs to interact with the hardware. 
+    System calls are the APIs provided by the OS for the programs to interact with the hardware. 
 
 To increase better use of machine we can do I/O and Computation at the same time. You have multiple hardware resources which you can use simultaneously.
 
-Multiprogramming: Run more than 1 process at the same time on the CPU. CPU decides memory management and scheduling. 
+    Multiprogramming: Run more than 1 process at the same time on the CPU. CPU decides memory management and scheduling. 
 
 Shell: Composable commands 
 
@@ -22,15 +22,15 @@ More than 1 processor can be present on 1 system. Used to do parallel programmin
 
 # LECTURE 2
 
-OS = Kernel + lots of software pieces that sit above it. 
+    OS = Kernel + lots of software pieces that sit above it. 
 
 Your system = CPU + I/O devices + Networking Ports(Ethernet) + Memory(RAM) + System Bus(That connects all of this)
 
 System bus allows all the componenets to interact with each other. 
 
-Concurrancy: One thread on a CPU at a time but multiple threads active at the same time.
+    Concurrancy: One thread on a CPU at a time but multiple threads active at the same time.
 
-    Concurrancy also needs parallism to truely allow multiple threads work on together on different cores. (Concurrancy vs Parallelism) 
+Concurrancy also needs parallism to truely allow multiple threads work on together on different cores. (Concurrancy vs Parallelism) 
 
 Multiple process running at the same time on OS but only on a single CPU is concurrancy but not parallelism. Its virtual concurrancy.
 
@@ -54,9 +54,9 @@ A status bit in a protected processes register indicates whether you are in the 
 
 IO is a priveleged mode. But most user processes have IO , so then the processes asks the Kernel to do this process on its behalf. 
 
-> System calls are the OS procedures that execute previleged instructions. 
+    System calls are the OS procedures that execute previleged instructions. 
 
-System calls are the APIs exported by the kernel. They internally call traps which are software interrupts. 
+    System calls are the APIs exported by the kernel. They internally call traps which are software interrupts. 
 
 System calls internally call traps so that the execution is passed onto the kernel to carry out the previleged instructions. 
 
@@ -81,7 +81,7 @@ Process Memory Layout in Memory
 
 When you allocate more space on stack it grows downwards and when you allocate more memory on the heap it grows upwards and gap decreases. 
 
-Register = One word of memory managed by the CPU. 
+    Register = One word of memory managed by the CPU. 
 
 Special Purpose Registers:
 
@@ -114,7 +114,7 @@ How a trap is handled ?
 4. Using the trap vector jump to the particular address given in the vector and start executing the code. 
 5. Once you are done give the context back the process and resume the execution of the process. 
 
-Trap vectors are stored in the kernel address space. 
+    Trap vectors are stored in the kernel address space. 
 
 Modern OS use virtual memory traps for many applications: Debugging , Distributed VM, Copy on Write etc. 
 
@@ -131,7 +131,7 @@ Types of IO
 
 Interrrupts vs Traps: [ Hardware vs Software ] 
 
-Interrupts are raised by hardware whereas traps are raised by the software. Interrupt vector serve similar purpose to trap vector. 
+    Interrupts are raised by hardware whereas traps are raised by the software. Interrupt vector serve similar purpose to trap vector. 
 
 Timer and Atomic Instructions:
 
@@ -154,41 +154,34 @@ Translation Lookaside Buffers or TLBs:
 
 Virtual memory allows users to run programs without loading the entire program in memory at once.
 
-Pieces of programs are loaded as and when needed. 
-
 OS must keep a track of which pieces are in which part of physical memory and which pieces are on the disc. 
 
 In order for the pieces of the programs to be located /loaded without any disruption to the program the hardware provides a TLB for a speedy lookup. 
 
-TLB (Cache) maps the virtual memory / logical memory to the physical memory. 
+    TLB (Cache) maps the virtual memory / logical memory to the physical memory. 
+    Pieces of programs are loaded as and when required. And this programs are run without loading the entire program in memory at once. 
 
 # LECTURE 3
 
-OS Service          Hardware Support
-
-Protection          Kernel /User Mode 
-
-Interrupt           Interrupt Vectors 
-
-System Calls        Trap instructions 
-
-I/O                 Interrupts, Memory mapping
-
-Scheduling          Timer
-
-Synchronization     Atomic Instructions 
-
-Virtual Memory      Translational Lookaside Buffers
+    OS Service          Hardware Support
+    Protection          Kernel /User Mode 
+    Interrupt           Interrupt Vectors 
+    System Calls        Trap instructions 
+    I/O                 Interrupts, Memory mapping
+    Scheduling          Timer
+    Synchronization     Atomic Instructions 
+    Virtual Memory      Translational Lookaside Buffers
 
 printf statement which you use in c calls the standard library which implements the printf function. The printf function internally calls write system calls
 
 Typically every system call has a number. System call interface maintains a table indexed according to these numbers. 
 E.g. Write system call is just a system call number x for the OS. 
-System call generates trap. Trap causes kernel process to execute. Kernel process takes the system call number and runs the particular process. 
+
+    System call generates trap. Trap causes kernel process to execute. Kernel process takes the system call number and runs the particular process. 
 
 System call generating process and the kernel process are the 2 different processes. 
 
-How to pass parameters to the Kernel Process ? 
+> How to pass parameters to the Kernel Process ? 
 1. Push the parameters to the registers. Only certain number of registers on the system so limitations on the number of parameters. 
 2. Put all the parameters on a memory block. Then add the address of the block to the register for the kernel process to read. -- Linux and Solaris
 3. Put the parameters on the user process stack. The kernel then figures out the stack using the stack pointer. Since the kernel process is a previleged process it can access any processes stack which is however not true for the user processes who can access their own stack. 
@@ -197,7 +190,7 @@ The first method is much faster than the rest 2 because the other 2 load memory 
 
 OS ARCHITECTURE. 
 
-Kernel is the protected part of OS that runs in kernel mode and has critical datastructures , scheduling and device drivers and protects these from user processes. 
+    Kernel is the protected part of OS that runs in kernel mode and has critical datastructures , scheduling and device drivers and protects these from user processes. 
 OS = Kernel + User space APIs. 
 
 1. Monolithic Kernel 
@@ -218,7 +211,7 @@ Advantages & Disadvantages of Microkernel:
 
 OS-X was also initially tried up as a microkernel architecture. But due to efficiency issue they started pushing some things back into the kernel mode to reduce the IPC overhead. 
 
-4. Modules - All modern OS use this. 
+4. Modular - All modern OS use this. 
 Highly Modular and efficient. Core kernel and then you can extend its functionality that you can import as modules when you boot up. At run times the modules get imported in the process and thus this runs like a single monolithic process. 
 Advatages of microkernel -- software engineering benefits and efficiency because of monolithic process. 
 
@@ -229,9 +222,9 @@ When you boot there is a list of module that tells OS which modules have to be l
 
 PROCESS MANAGEMENT:
 
-A process is not a program. A process is one instance of the program which includes the program code and the execution context (PC , registers etc.) 
+    A process is not a program. A process is one instance of the program which includes the program code and the execution context (PC , registers etc.) 
+    Process is a dynamic  execution context of a running program. 
 
-Process is a dynamic  execution context of a running program. 
 Several processes can run the same program but each as a distinct process in its own execution state. 
 
 Process Execution State: 
@@ -248,38 +241,49 @@ New ----> Ready <-----------> Running ------> Terminated
 
 # LECTURE 4
 
-PCB: Process Control Block { Kernel Datastructure } 
+    PCB: Process Control Block { Kernel Datastructure } 
+
 The OS allocates a new PCB to each process and places it on a state queue. 
+
 For restoring the variables of a process into the memory load it from the PCB. 
+
 Everything that the OS needs for the process are stored in the PCB. 
 
 There are state queues. New state queue, ready state queue and so on. The processes are moved from 1 queue to another on changing the states. 
+
 The running queue is bounded in length because it is limited by the number of the CPUs in your system. For 4 cores you have 4 members at most in run queue.
 
 CONTEXT SWITCH: 
-Process of switching the CPU from 1 processes to another is called context switch and it is a relatively costly operation.
-When the OS stops the process it saves the current variables and the state of the process in the PCB and loads another process.
+
+    Process of switching the CPU from 1 processes to another is called context switch and it is a relatively costly operation.
+    When the OS stops the process it saves the current variables and the state of the process in the PCB and loads another process.
+
 This process of switching the CPU from 1 process to another is called context switch. 
+
 Every process is given a t duration time slice. Once the timer (kernel instruction) expires a hardware interrupt is generated and current process stops. 
 
 PROCESS CREATING
-Processes are created by other processes. Thus every process has a parent process that created it except the initial boot up process. 
-Kernel is a common ancestor of all processes as it is the initial process that runs on bootup. 
+
+    Processes are created by other processes. Thus every process has a parent process that created it except the initial boot up process. 
+    Kernel is a common ancestor of all processes as it is the initial process that runs on bootup. 
 
 fork system call creates a new process. The child processes created using the fork call is exactly the mirror of the memory copy of the parent process.
+
 The child process wont start executing from the main because it is a copy of the memory layout of the parent and thus starts executing from the fork call as the PC of the parent process points to the fork call. 
 
-The only difference between the parent and the child process created using fork is the return value of the fork. 
-fork returns the pid of the child in the parent and returns 0 in the child process. 
+    The only difference between the parent and the child process created using fork is the return value of the fork. 
+    fork returns the pid of the child in the parent and returns 0 in the child process. 
+
 The child can start running a completely different program using the exec system call. 
+
 The parent can wait for the child to complete execution or continue running in parallel. 
 
-Exec loads a new program entirely in the childs memory layout and now it is childs memory layout is replaced by the new process entirely. 
+    Exec loads a new program entirely in the childs memory layout and now it is childs memory layout is replaced by the new process entirely. 
 
 Child processes whose parents died before they finished execution are called orphaned process and by default root becomes their parent process. 
 
-A process can terminate itself using the exit system call. 
-A process can terminate the child using the kill system call. 
+    A process can terminate itself using the exit system call. 
+    A process can terminate the child using the kill system call. 
 
 On termination the OS reclaims all the resources assigned to the process. 
 
@@ -296,7 +300,9 @@ The mmap(...) system call helps you with this purpose.
 # LECTURE 5
 
 Long Term Scheduling: Number of jobs executing at once in the primary memory --> You usually would have never hit this limit. 
+
 OS decides the max limit on the number of active processes in the system. OS doesnt allow you to start a new process henceforth. 
+
 Hit when you do a fork bomb. OS makes sure all active processes can make progress and have enough hardware resources. 
 
 Short Term Scheduling: Selection of a process from the ready queue. 
@@ -306,9 +312,9 @@ The kernel runs the scheduler atleast when
 2. an interrupt occurs 
 3. a process is created or terminated 
 
-Non Preemptive System: The scheduler has to wait for the above condition to occur. That is either the process has to start doing IO or wait for an interrupt to occur for it to stop. Otherwise it completes its execution until the next process is scheduled.
+    Non Preemptive System: The scheduler has to wait for the above condition to occur. That is either the process has to start doing IO or wait for an interrupt to occur for it to stop. Otherwise it completes its execution until the next process is scheduled.
 
-Preemptive Process: The scheduler can call interrrupt a running system when its time slot expires. 
+    Preemptive Process: The scheduler can call interrrupt a running system when its time slot expires. 
 
 > How to compare scheduling algorithms ? 
 1. CPU Utilization - Percentage of time CPU is busy 
@@ -325,19 +331,19 @@ But this is usually picked up by the compiler while starting the kernel.
 
 > Scheduling Policies 
 
-    1. FCFS - First Come First Serve.
+1. FCFS - First Come First Serve.
 
-    Preemtive system. If a process makes IO / blocking system call then the next process runs and after that again the first process will continue. 
+Preemtive system. If a process makes IO / blocking system call then the next process runs and after that again the first process will continue. 
 
-    2. Round Robin - Every job is given a time slice which it either utilizes fully or partially if it makes a blocking system call before time ends. 
+2. Round Robin - Every job is given a time slice which it either utilizes fully or partially if it makes a blocking system call before time ends. 
 
-    Simplest preemtive system. 
+Simplest preemtive system. 
 
-    Every time a new process is scheduled you do a context switch. 
+Every time a new process is scheduled you do a context switch. 
 
-    All context switches have a overhead involved with them.
+All context switches have a overhead involved with them.
 
-    Time Slice too large - Waiting time increases and it approaches to FCFS. Too Small time slice has higher overhead of context switch. 
+Time Slice too large - Waiting time increases and it approaches to FCFS. Too Small time slice has higher overhead of context switch. 
 
 
 
