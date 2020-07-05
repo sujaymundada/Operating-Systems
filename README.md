@@ -289,6 +289,7 @@ But this is usually picked up by the compiler while starting the kernel.
 > A blocking system call is the one that puts the calling process in waiting state until the event on which the block was called gets completed. 
 
 > Scheduling Policies 
+
     1. FCFS - First Come First Serve.
 
     Preemtive system. If a process makes IO / blocking system call then the next process runs and after that again the first process will continue. 
