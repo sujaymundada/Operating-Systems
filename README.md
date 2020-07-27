@@ -357,6 +357,89 @@ Use behaviour of the job in the recent past to predict the future. - Decent Assu
 
 # Lecture 6
 
+Multilevel Feedback Queue [MLFQ] - Approximating shortest job first. 
+
+Prediction of what the process will do given the recent history of the process. After the IO is completed it might become CPU bound and stay like that or while doing IO it will keep doing IO for some more time. 
+
+Multiple queues with different priorities. Use round robin scheduling at every queue by running the jobs in the highest priority queue first. 
+
+Start with the highest priority non empty queue and then start doing round robin in that queue. Once that queue is finished you can move to the next queue.
+
+The time slice is same for 1 queue however across queues it is different. The time slice increases as the queue priority decreases. Higher priority queues have a smaller time slice. 
+
+How is the priority of a process gets decided ? Which queue does it go ? 
+
+1. All new jobs that come into the system for the very first time start with the highest priority. 
+2. After the process uses its 1st time slice then schedule it to a queue one priority lower. 
+3. If the process doesnt use the entire time slice for e.g. goes for I/O then it goes up 1 priority. 
+
+This can lead to a starvation if the highest priority queue is always filled. 
+
+> For a CPU bound job it will keep on going down in priority level until finished. They will sink and end up in the bottom. 
+
+IO bound jobs will rise as they spend a lot of time doing IO in comparison to computation. IO bound jobs are short in terms of CPU requirement. 
+
+Shortest jobs are the IO bound jobs because they do a little of computation and then do IO. 
+
+This will be unfair if there is a long job and multiple short jobs keep on arriving , the long job will be starved in SJF. Similarly in MLFQ some IO bound job presense will starve the computational jobs.
+
+Solution: Attach a timer with every process and if some job is getting starved for more than t seconds then pump it one priority up , so starving processes can get a chance to run. 
+
+> Lottery Scheduler: Randomized Algorithm. [ Randomized Scheduler ]
+Select a random job from the ready queue. Assign multiple tickets to short running jobs so that they become more favourable. To avoid starvation ensure that each job has atleast 1 lottery ticket. 
+User gets to decide how many tickets to give to job. E.g. Give 10 tickets to a short job and 1 ticket to a long job. 
+
+## THREADS
+
+A process defines address space, text and resources. 
+
+A thread defines a single sequential executional stream within a process (They have their own PC, stack and registers) 
+
+Threads extract the thread of control information from the process and are bound to a single process. 
+
+All threads have the same process ID but different thread id. 
+
+Each process can have multiple threads of control within it. 
+No system calls are required to cooperate amongst the threads.
+Simpler than message parsing and shared memory. 
+
+e.g. Producer Consumer problem. The producer thread is different from the consumer thread. 
+Both can run simulatenously if you have a multi core machine and thus will achieve true parallelism. 
+
+# Lecture 7
+
+## 2 types of threading packages: User level threads and Kernel level threads 
+
+Kernel Threads: Lightweight process , is a thread that the OS knows about. 
+
+Kernel level thread - Kernel will manage the creation and destrcution and scheduling of the threads for us. 
+
+Switching between Kernel Threads of the same process needs a small context switch. Registers, Program counter and stack pointer needs to be changed. 
+
+Memory Management Information doesnt not need to be changed because multiple threads use the same address space. 
+
+If there are multiple threads in a process each thread gets scheduled separately and thus gets independant time slice from the OS. 
+
+## User Level Threads Library. 
+
+OS only knows about the existence of the process. Thus the OS only schedules the process and not the threads. 
+The programmer uses the thread library to manage the threads ( create , delete , synchronize and schedule them) 
+
+After the program is scheduled to run by the CPU the thread library decides which thread to execute. 
+
+Thus the kernel in this case visualizes this process as a single thread process only. 
+
+User level threads are very light weight in nature because all the execution of threads including the creating of threads are function calls unlike kernel threads where it is a kernel switch. 
+
+Switching between user level threads is not a context switch unlike kernel level threads. 
+
+User level thread scheduling is more flexible as well. All thread management calls are library calls and not system calls. 
+
+User level threads however cannot take advantage of the multiple cores because the OS doesnt know how many threads the process has. 
+
+If 1 thread on the user level process blocks for IO the entire process starves till that thread IO gets completed. 
+
+If the OS doesnt support threading then you could use the user level threading library.
 
 
 
@@ -371,6 +454,7 @@ Use behaviour of the job in the recent past to predict the future. - Decent Assu
 
 
 
+ 
 
 
 
