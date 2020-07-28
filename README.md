@@ -450,10 +450,10 @@ Because threads are concurrent bits of code you need to worry about Synchronizat
 Locks and Semaphores are important methods to ensure synchronization. 
 
 > Terminology: 
-    > 1. Atomic Instruction: Synchronization 
-    > 2. Mutual Exclusion: Ensure only 1 thread does a particular activity at 1 time. 
-    > 3. Critical Section: Piece of code that only 1 thread can execute at a time. 
-    > 4. Locks: Mechanism to prevent other processes from doing something 
+    1. Atomic Instruction: Synchronization 
+    2. Mutual Exclusion: Ensure only 1 thread does a particular activity at 1 time. 
+    3. Critical Section: Piece of code that only 1 thread can execute at a time. 
+    4. Locks: Mechanism to prevent other processes from doing something 
 
 > Busy waiting - Waste CPU cycles doing nothing. 
 
@@ -466,6 +466,13 @@ Atomic read-modify-write instructions
 test&set instruction - tests the value of the variable and sets it to if not already 1 and returns the old value. 
 
 e.g. while(test&set(variable) == 1) add this segment to all the threads,  test&set returns 0 in the first thread that acquires the lock and thus gets free from the while loop whereas other threads get stuck here for busy waiting. 
+
+You can reduce the busy waiting amount if you use queues for different threads and use guards which will ensure that the CPU is given up if the lock is busy
+The guard ensures the shared queue datastructure is protected. 
+
+Threads that are busy waiting are actually sleeping when in the queue and thus dont take up the CPU cycle. 
+
+
 
 
 
