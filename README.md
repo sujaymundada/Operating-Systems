@@ -441,6 +441,43 @@ If 1 thread on the user level process blocks for IO the entire process starves t
 
 If the OS doesnt support threading then you could use the user level threading library.
 
+> Just as each process has a process id each thread has a thread id associated with it. 
+
+## Synchronization 
+
+Because threads are concurrent bits of code you need to worry about Synchronization.
+
+Locks and Semaphores are important methods to ensure synchronization. 
+
+> Terminology: 
+    > 1. Atomic Instruction: Synchronization 
+    > 2. Mutual Exclusion: Ensure only 1 thread does a particular activity at 1 time. 
+    > 3. Critical Section: Piece of code that only 1 thread can execute at a time. 
+    > 4. Locks: Mechanism to prevent other processes from doing something 
+
+> Busy waiting - Waste CPU cycles doing nothing. 
+
+> Locks give mutual exclusion with 2 methods - acquire and release methods. You have to make sure acquire and release methods atomic instructions. 
+
+> Always acquire the lock before entering the critical section and then release the lock. 
+
+Atomic read-modify-write instructions
+
+test&set instruction - tests the value of the variable and sets it to if not already 1 and returns the old value. 
+
+e.g. while(test&set(variable) == 1) add this segment to all the threads,  test&set returns 0 in the first thread that acquires the lock and thus gets free from the while loop whereas other threads get stuck here for busy waiting. 
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
