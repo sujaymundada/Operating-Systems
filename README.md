@@ -472,6 +472,73 @@ The guard ensures the shared queue datastructure is protected.
 
 Threads that are busy waiting are actually sleeping when in the queue and thus dont take up the CPU cycle. 
 
+## Semaphores [ SPECIAL ATOMIC INTEGER VARIABLES ]  
+
+> Useful for mutual exclusion and scheduling constraints. 
+
+> Mutex are binary semaphores that take values 1 and 0. 
+
+Integer value which can be manipulated only using 2 methods. Can be updated only 2 special atomic instructions 
+
+Counting Semaphores - Value varies from 1 to n. Useful when n multiple jobs(threads) can be run in parallel. 
+
+2 methods for Semaphores. Wait - decrements and Signal - increments. 
+
+> Uses of Semaphores: Scheduling constraints. You can make sure that some piece of code foo must always execute after bar is executed. The initial value of the semaphore is set to 0 in this case. 
+
+## MONITORS and CONDITIONAL VARIABLES
+
+Monitor is a class that ties the data , operations and in general the synchronization operations together. 
+
+> Monitors require all the shared data to be private. 
+
+> Monitor guarantees mutual exclusion so only 1 thread at a particular time can call a method on that class. 
+
+> Also since the data is private only 1 particular thread can access the shared data. 
+
+> Conditional Variables allows you to go to sleep inside a critical section and then release the lock. 
+
+> It can temporarily release the mutex lock when it can't continue and then reacquire when it can. 
+
+> Why do you need conditional variables ? Lets say you have a remove method in queue that should always return something. Now if the queue is empty it has to wait for the object to be added in the queue but if the remove method doesnt release the lock on the queue then the new element can never be added in the queue so you go to sleep in the remove methods until the queue is empty and give up the lock. 
+
+    Condition variables enable a thread to sleep inside a critical section by giving up the lock on the critical section. 
+    Thread must hold the lock while doing checks on the conditional variable. 
+    Use wait for giving up the lock and notify to give a signal to the conditional variable. While queue is empty wait. 
+
+> Conditional variables are internally implemented as a queue of threads that are waiting for some condition to get hit. 
+
+
+## Lecture 11
+
+> Deadlocks can be prevented by using symmetric codes for all the processes accessing the critical section. 
+
+How does the separation of the exec and the fork call help in running the processes ?  
+The functions are such that they allow the code before the exec and after the fork to run such that the variables can be set for the exec setup.   
+E.g for redirecting the output to a file the code segment before the execvp closes the stdout and opens the file where the output is to be redirected.   
+
+The Unix Pipes are implemented in a similar fashion but using the pipe system call. It connected the output of one process to a kernel pipe and the input of another process is connected to the same pipe so that the data flows seamlessly.  
+
+Both child and parent process can access the file descriptors set in the parent process but one overwrites the other.  
+SIGCONT signal can be sent to the parent process to wait for the execution of the child without using the wait statement.  
+
+- SIGCONT is basically used to resume the execution of a process stopped by SIGSTOP. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
